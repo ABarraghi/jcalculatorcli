@@ -1,6 +1,7 @@
 package com.github.abarraghi;
 
 import java.util.Scanner;
+import java.util.Iterator;
 
 public class CalculatorMain {
 
@@ -10,33 +11,63 @@ public class CalculatorMain {
 		String[] testers = {
 				"5 + 2",
 				"5 - 2",
+				"Nonesense",
 				"5 * 2",
 				"5 / 2",
+				"X",
 				"5+2",
 				"5-2",
 				"5*2",
 				"5/2",
-				"5$2"
+				"5$2",
+				"5             +      2"
 		};
 		
-		for(String element : testers) {
+		String input = "";
+		int i = 0;
+		Calculator calc = null;
+		float result = 0;
+		
+		while(!(input = testers[i]).equals("X")) {
 			
-			String formula = arrToString(element.split(" "));
-			System.out.println(formula);
+			i++;
 			
-			float operandOne = Float.parseFloat(Character.toString(formula.charAt(0)));
-			float operandTwo = Float.parseFloat(Character.toString(formula.charAt(2)));
-			char operator = formula.charAt(1);
-			System.out.println(operandOne + "," + operandTwo + "," + operator);
+			try {
+				System.out.println("input: " + input);
+				Thread.sleep(3000);
+			} catch(Exception e) { }
 			
-			Calculator calc = new Calculator(operandOne,operandTwo,operator);
+			String formula = arrToString(input.split(" "));
 			
-			float result = calc.calculate();
+			try {
+				System.out.println("formula: " + formula);
+				Thread.sleep(3000);
+			} catch(Exception e) { }
 			
-			System.out.println(result);
+			try {
+				float operandOne = Float.parseFloat(Character.toString(formula.charAt(0)));
+				float operandTwo = Float.parseFloat(Character.toString(formula.charAt(2)));
+				char operator = formula.charAt(1);
+				calc = new Calculator(operandOne,operandTwo,operator);
+			} catch(Exception e) {
+				System.err.println("Bad inputs!");
+				continue;
+			}
+			
+			result = calc.calculate();
+
+			try {
+				System.out.println("result: " + result);
+				Thread.sleep(3000);
+			} catch(Exception e) { }
+			
 		}
 		
-
+		try {
+			System.out.print("Stopping Calculator, goodbye!");
+			Thread.sleep(3000);
+		} catch(Exception e) { }
+		
 	}
 	
 	public static String arrToString(String[] arr) {

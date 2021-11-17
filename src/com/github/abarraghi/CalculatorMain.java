@@ -10,10 +10,10 @@ public class CalculatorMain {
 		
 		String[] testers = {
 				"5 + 2",
-				"5 - 2",
+				"40 - 3 * 5 + 1",
 				"Nonesense",
-				"5 * 2",
-				"5 / 2",
+				"(1 + 2) * (3 - 4)",
+				"10 + 11 * 12",
 				"X",
 				"5+2",
 				"5-2",
@@ -26,7 +26,9 @@ public class CalculatorMain {
 		String input = "";
 		int i = 0;
 		Calculator calc = null;
+		PostfixConverter pf = null;
 		float result = 0;
+		String postfix = "";
 		
 		while(!(input = testers[i]).equals("X")) {
 			
@@ -45,21 +47,27 @@ public class CalculatorMain {
 			} catch(Exception e) { }
 			
 			try {
-				float operandOne = Float.parseFloat(Character.toString(formula.charAt(0)));
-				float operandTwo = Float.parseFloat(Character.toString(formula.charAt(2)));
-				char operator = formula.charAt(1);
-				calc = new Calculator(operandOne,operandTwo,operator);
+//				float operandOne = Float.parseFloat(Character.toString(formula.charAt(0)));
+//				float operandTwo = Float.parseFloat(Character.toString(formula.charAt(2)));
+//				char operator = formula.charAt(1);
+//				calc = new Calculator(operandOne,operandTwo,operator);
+				pf = new PostfixConverter(formula);
+				
 			} catch(Exception e) {
 				System.err.println("Bad inputs!");
 				continue;
 			}
 			
-			result = calc.calculate();
-
+//			result = calc.calculate();
 			try {
-				System.out.println("result: " + result);
-				Thread.sleep(3000);
-			} catch(Exception e) { }
+			postfix = pf.infixToPostfix();
+			System.out.println("postfix rep: " + postfix);
+			Thread.sleep(3000);
+			}
+			catch(Exception e) {
+				System.err.println("Bad inputs!");
+			}
+			
 			
 		}
 		

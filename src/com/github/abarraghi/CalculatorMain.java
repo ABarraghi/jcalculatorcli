@@ -10,7 +10,7 @@ public class CalculatorMain {
 		
 		String[] testers = {
 				"5 + 2",
-				"40 - 3 * 5 + 1",
+				"4*((2+6)/3)",
 				"Nonesense",
 				"(1 + 2) * (3 - 4)",
 				"10 + 11 * 12",
@@ -85,6 +85,8 @@ public class CalculatorMain {
 		}
 		return str;
 	}
+	
+	
 	
 	
 }

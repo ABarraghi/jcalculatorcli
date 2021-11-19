@@ -28,4 +28,12 @@ hs_err_pid*
 .settings/
 
 # Mac # 
-.DS_Store 
+.DS_Store
+src/.DS_Store
+src/com/.DS_Store
+src/com/github/.DS_Store
+src/com/github/abarraghi/.DS_Store
+bin/.DS_Store
+bin/com/.DS_Store
+bin/com/github/.DS_Store
+bin/com/github/abarraghi/.DS_Store

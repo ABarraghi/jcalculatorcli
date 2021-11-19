@@ -25,5 +25,7 @@ hs_err_pid*
 # Eclipse IDE files/dirs #
 .project
 .classpath
-.settings
+.settings/
+
+# Mac # 
 .DS_Store 

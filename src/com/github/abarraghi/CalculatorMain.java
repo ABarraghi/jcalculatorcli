@@ -9,8 +9,8 @@ public class CalculatorMain {
 		// TODO Auto-generated method stub
 		
 		String[] testers = {
-				"5 + 2",
-				"4*((2+6)/3)",
+				
+				"40.5*((20.5+60.5)/30.5)",
 				"Nonesense",
 				"(1 + 2) * (3 - 4)",
 				"1 + 1 * 2",
@@ -39,9 +39,12 @@ public class CalculatorMain {
 				Thread.sleep(3000);
 			} catch(Exception e) { }
 			
-			String formula = arrToString(input.split(" "));
+			String tokenizedForm = tokenizeInput(input);
+			
+			String[] formula = tokenizedForm.split(",");
 			
 			try {
+				System.out.println(tokenizedForm);
 				System.out.println("formula: " + formula);
 				Thread.sleep(3000);
 			} catch(Exception e) { }
@@ -62,7 +65,7 @@ public class CalculatorMain {
 			postfix = pf.infixToPostfix();
 			System.out.println("postfix rep: " + postfix);
 			Thread.sleep(3000);
-			calc = new Calculator(postfix);
+			calc = new Calculator(postfix.split(","));
 			result = calc.calculate();
 			System.out.println("Result: " + result);
 			Thread.sleep(3000);
@@ -81,12 +84,39 @@ public class CalculatorMain {
 		
 	}
 	
-	public static String arrToString(String[] arr) {
-		String str = "";
-		for(String elem : arr) {
-			str += elem;	
+	/**
+	 * Represent a given formula in tokens, separating those tokens by a comma
+	 * @param input the formula to be separated by commas
+	 * @return tokenized representation of the formula
+	 */
+	public static String tokenizeInput(String input) {
+		char currChar = ' ';
+		String tokenized = "";
+		boolean digitPrec = false;
+		for(int i = 0;i<input.length();i++) {
+			currChar = input.charAt(i);
+			if(Character.isDigit(currChar)||currChar=='.') {
+				tokenized += currChar;
+				digitPrec = true;
+				continue;
+			}
+			else if (currChar == ' ') continue;
+			else {
+				if(digitPrec) { 
+					digitPrec = false;
+					if(i==(input.length()-1)) tokenized += "," + currChar;
+					else
+					tokenized += "," + currChar + ",";
+				}
+				else
+					if(i==(input.length()-1)) tokenized += currChar;
+					else
+					tokenized += currChar + ",";		
+			}
+			
 		}
-		return str;
+		
+		return tokenized;
 	}
 	
 	

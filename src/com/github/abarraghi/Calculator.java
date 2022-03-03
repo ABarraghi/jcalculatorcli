@@ -10,13 +10,13 @@ public class Calculator {
 	private float operandTwo;
 	private char operator;
 	private float result = 0;
-	private String input = "";
+	private String[] input;
 	private Stack<Float> calcStack;
 	
 	//Constructors
 	public Calculator() {}
 	
-	public Calculator(String input){
+	public Calculator(String[] input){
 		this.input = input;
 		calcStack = new Stack<Float>();
 	}
@@ -29,25 +29,25 @@ public class Calculator {
 	 */
 	public float calculate() {
 		
-		for(int i = 0; i < input.length(); i++ ) {
+		for(int i = 0; i < input.length; i++ ) {
 			
-			char currChar = input.charAt(i);
+			String currElem = input[i];
 			
-			if (Character.isDigit(currChar)) calcStack.push(charToFloat(currChar));
-			
-			else {
+			try {
+				calcStack.push((float) Double.parseDouble(currElem));
+			}
+			catch(NumberFormatException e) {
 				
 				try {
 					
-					operator = currChar;
+					operator = currElem.charAt(0);
 					operandTwo = calcStack.pop();
 					operandOne = calcStack.pop();
 					
 					calcStack.push(performOperation());
 					
-				} catch(Exception e) { e.printStackTrace(); }
-				
-			}
+				} catch(Exception ex) { ex.printStackTrace(); }
+			}	
 			
 		}
 		
@@ -74,11 +74,6 @@ public class Calculator {
 				System.err.println("Invalid operator!");
 		}
 		return result;
-	}
-	
-	//Converts a 'digit' char to float
-	public float charToFloat(char ch) {
-		return Float.parseFloat(String.valueOf(ch));
 	}
 
 }

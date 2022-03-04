@@ -70,6 +70,12 @@ public class Calculator {
 			case '/':
 				result = operandOne / operandTwo;
 				break;
+			case '^':
+				result = (float) Math.pow(operandOne, operandTwo);
+				break;
+			case '%':
+				result = operandOne % operandTwo;
+				break;
 			default:
 				System.err.println("Invalid operator!");
 		}

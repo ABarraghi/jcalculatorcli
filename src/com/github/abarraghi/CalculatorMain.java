@@ -14,6 +14,8 @@ public class CalculatorMain {
 				"Nonesense",
 				"(1 + 2) * (3 - 4)",
 				"1 + 1 * 2",
+				"(3+5)%6",
+				"2 ^ 2 ^ 2",
 				"X",
 				"5+2",
 				"5-2",
@@ -50,9 +52,6 @@ public class CalculatorMain {
 			} catch(Exception e) { }
 			
 			try {
-//				float operandOne = Float.parseFloat(Character.toString(formula.charAt(0)));
-//				float operandTwo = Float.parseFloat(Character.toString(formula.charAt(2)));
-//				char operator = formula.charAt(1);
 				pf = new PostfixConverter(formula);
 				
 			} catch(Exception e) {
@@ -60,7 +59,6 @@ public class CalculatorMain {
 				continue;
 			}
 			
-//			result = calc.calculate();
 			try {
 			postfix = pf.infixToPostfix();
 			System.out.println("postfix rep: " + postfix);

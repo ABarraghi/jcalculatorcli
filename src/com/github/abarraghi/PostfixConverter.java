@@ -5,7 +5,7 @@ import java.util.*;
 public class PostfixConverter {
 	
 	private HashMap<Character, Integer> operPrecedence;
-//	private HashMap<Character, String> operAssociativity;
+	private HashMap<Character, String> operAssociativity;
 	private Stack<Character> operStack;
 	private String input[];
 	private String output = "";
@@ -15,16 +15,27 @@ public class PostfixConverter {
 	PostfixConverter(String[] input) {
 		//Instantiate Data Structures
 		operPrecedence = new HashMap<Character, Integer>();
-//		operAssociativity = new HashMap<Character, String>();
+		operAssociativity = new HashMap<Character, String>();
 		operStack = new Stack<Character>();
 		this.input = input;
 	
 		//Assign each operator its precedence
+		operPrecedence.put('^',4);
+		operPrecedence.put('%',3);
 		operPrecedence.put('/',3);
 		operPrecedence.put('*',3);
 		operPrecedence.put('+',2);
 		operPrecedence.put('-',2);
 		operPrecedence.put('(',0);
+		
+		//Assign each operator its associativity
+		operAssociativity.put('^', "RL");
+		operAssociativity.put('%', "LR");
+		operAssociativity.put('/', "LR");
+		operAssociativity.put('*', "LR");
+		operAssociativity.put('+', "LR");
+		operAssociativity.put('-', "LR");
+		operAssociativity.put('(', "LR");
 		
 	}
 	
@@ -68,7 +79,7 @@ public class PostfixConverter {
 				
 				else { 
 					
-					if( !operStack.isEmpty() ) {
+					if( !operStack.isEmpty() && operAssociativity.get(operStack.peek()).equals("LR")) {
 						
 						currPrec = operPrecedence.get(currElem.charAt(0));
 						topChar = operStack.peek();

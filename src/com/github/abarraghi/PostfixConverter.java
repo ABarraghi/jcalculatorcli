@@ -20,7 +20,9 @@ public class PostfixConverter {
 		this.input = input;
 	
 		//Assign each operator its precedence
+		operPrecedence.put('!',5);
 		operPrecedence.put('^',4);
+		operPrecedence.put('~',3);
 		operPrecedence.put('%',3);
 		operPrecedence.put('/',3);
 		operPrecedence.put('*',3);
@@ -29,7 +31,9 @@ public class PostfixConverter {
 		operPrecedence.put('(',0);
 		
 		//Assign each operator its associativity
+		operAssociativity.put('!', "RL");
 		operAssociativity.put('^', "RL");
+		operAssociativity.put('~', "RL");
 		operAssociativity.put('%', "LR");
 		operAssociativity.put('/', "LR");
 		operAssociativity.put('*', "LR");

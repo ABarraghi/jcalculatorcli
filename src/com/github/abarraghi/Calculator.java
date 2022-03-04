@@ -12,6 +12,7 @@ public class Calculator {
 	private float result = 0;
 	private String[] input;
 	private Stack<Float> calcStack;
+	private HashMap<Character, String> operatorType;
 	
 	//Constructors
 	public Calculator() {}
@@ -19,6 +20,16 @@ public class Calculator {
 	public Calculator(String[] input){
 		this.input = input;
 		calcStack = new Stack<Float>();
+		operatorType = new HashMap<Character,String>();
+		
+		operatorType.put('!', "unary");
+		operatorType.put('~', "unary");
+		operatorType.put('^', "binary");
+		operatorType.put('%', "binary");
+		operatorType.put('*', "binary");
+		operatorType.put('/', "binary");
+		operatorType.put('+', "binary");
+		operatorType.put('-', "binary");
 	}
 	
 	
@@ -41,7 +52,9 @@ public class Calculator {
 				try {
 					
 					operator = currElem.charAt(0);
-					operandTwo = calcStack.pop();
+					if(operatorType.get(operator).equals("binary"))
+						operandTwo = calcStack.pop();
+					
 					operandOne = calcStack.pop();
 					
 					calcStack.push(performOperation());
@@ -56,7 +69,7 @@ public class Calculator {
 	}
 	
 	//Calculate result of formula, according to operator used
-	public float performOperation() {
+	public float performOperation() throws Exception {
 		switch(operator) {
 			case '+':
 				result  = operandOne + operandTwo;
@@ -75,6 +88,24 @@ public class Calculator {
 				break;
 			case '%':
 				result = operandOne % operandTwo;
+				break;
+			case '!':
+				if(operandOne < 0) 
+					throw new Exception("Must be a non negative number!");
+				else {
+					
+					if((operandOne%2!=1)||(operandOne%2!=0))
+						throw new Exception("Must be an integer!");
+					else {
+						result = 1;
+						while(operandOne>1) {
+							result *= operandOne--;
+						}
+					}
+				}
+				break;
+			case '~':
+				result = -1 * operandOne;
 				break;
 			default:
 				System.err.println("Invalid operator!");

@@ -8,22 +8,7 @@ public class CalculatorMain {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		
-		String[] testers = {
-				
-				"40.5*((20.5+60.5)/30.5)",
-				"Nonesense",
-				"~(~((1 + 2) * (3 - 4)))",
-				"1 + 1 * 2",
-				"(3+5)%6",
-				"5.2!",
-				"X",
-				"5+2",
-				"5-2",
-				"5*2",
-				"5/2",
-				"5$2",
-				"5             +      2"
-		};
+		Scanner reader = new Scanner(System.in);
 		
 		String input = "";
 		int i = 0;
@@ -32,7 +17,17 @@ public class CalculatorMain {
 		float result = 0;
 		String postfix = "";
 		
-		while(!(input = testers[i]).equals("X")) {
+		System.out.println("Welcome to the jCalculator - Command Line Edition!");
+		System.out.println("The calculator accepts the following operators:");
+		System.out.println("1. Multiplication (*) | 6. Factorial (!) ");
+		System.out.println("2. Division (/)       | 7. Negation (~) ");
+		System.out.println("3. Addition (+)       | 8. Modulus (%) ");
+		System.out.println("4. Subtraction (-)    | 9. Parentheses ( () )");
+		System.out.println("5. Exponentiation (^) |  ");
+		
+		System.out.println("\nInput a formula: ");
+		
+		while(!(input = reader.nextLine()).equals("X")) {
 			
 			i++;
 			
@@ -46,16 +41,10 @@ public class CalculatorMain {
 			String[] formula = tokenizedForm.split(",");
 			
 			try {
-				System.out.println(tokenizedForm);
-				System.out.println("formula: " + formula);
-				Thread.sleep(3000);
-			} catch(Exception e) { }
-			
-			try {
 				pf = new PostfixConverter(formula);
 				
 			} catch(Exception e) {
-				System.err.println("Bad inputs!");
+				System.err.println("Bad inputs!" + e.getMessage());
 				continue;
 			}
 			
@@ -72,6 +61,7 @@ public class CalculatorMain {
 				System.err.println("Bad inputs!");
 			}
 			
+			System.out.println("\nInput a formula: ");
 			
 		}
 		
@@ -116,8 +106,4 @@ public class CalculatorMain {
 		
 		return tokenized;
 	}
-	
-	
-	
-	
 }

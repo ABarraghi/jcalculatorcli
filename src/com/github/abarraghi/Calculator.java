@@ -68,7 +68,11 @@ public class Calculator {
 		
 	}
 	
-	//Calculate result of formula, according to operator used
+	/**
+	 * Calculate result of formula, according to operator used
+	 * @return the value computed by performing the operation on the operand(s)
+	 * @throws Exception where a non-integer/negative is factorial input, or invalid operator is operator input  
+	 */
 	public float performOperation() throws Exception {
 		switch(operator) {
 			case '+':
@@ -91,10 +95,9 @@ public class Calculator {
 				break;
 			case '!':
 				if(operandOne < 0) 
-					throw new Exception("Must be a non negative number!");
+					throw new Exception("Must be a non-negative number!");
 				else {
-					
-					if((operandOne%2!=1)||(operandOne%2!=0))
+					if((operandOne%2!=1)&&(operandOne%2!=0))
 						throw new Exception("Must be an integer!");
 					else {
 						result = 1;
@@ -108,7 +111,7 @@ public class Calculator {
 				result = -1 * operandOne;
 				break;
 			default:
-				System.err.println("Invalid operator!");
+				throw new Exception("Invalid operator!");
 		}
 		return result;
 	}

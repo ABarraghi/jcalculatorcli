@@ -4,12 +4,14 @@ import java.util.*;
 
 public class PostfixConverter {
 	
+	//Declare fields
 	private HashMap<Character, Integer> operPrecedence;
 	private HashMap<Character, String> operAssociativity;
 	private Stack<Character> operStack;
 	private String input[];
 	private String output = "";
 	
+	//Constructors
 	PostfixConverter(){}
 	
 	PostfixConverter(String[] input) {
@@ -31,6 +33,7 @@ public class PostfixConverter {
 		operPrecedence.put('(',0);
 		
 		//Assign each operator its associativity
+		//RL - Right to Left, LR - Left to Right
 		operAssociativity.put('!', "RL");
 		operAssociativity.put('^', "RL");
 		operAssociativity.put('~', "RL");
@@ -109,6 +112,7 @@ public class PostfixConverter {
 		while( !operStack.isEmpty() ) {
 			output += operStack.pop() + ",";
 		}
+		
 		
 		return output.substring(0,output.length()-1);
 	}
